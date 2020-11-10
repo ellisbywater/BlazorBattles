@@ -1,0 +1,27 @@
+﻿@page "/build"
+@inject BlazorBattles.Web.Client.Services.IBananaService BananaService
+@inject BlazorBattles.Web.Client.Services.IUnitService UnitService
+
+<h3>Build</h3>
+
+<div class="form-group">
+    <select @bind="selectedUnitId" class="form-control">
+        @foreach(var unit in UnitService.Units)
+        {
+            <option value="@unit.Id">@unit.Title // @unit.BananaCost Bananas</option>
+        }
+    </select>
+</div>
+
+<button @onclick="BuildUnit" class="btn btn-primary">Build</button>
+
+@code {
+    int selectedUnitId = 1;
+
+    public void BuildUnit()
+    {
+        BlazorBattles.Web.Shared.Unit selectedUnit = UnitService.Units.FirstOrDefault(unit => unit.Id == selectedUnitId);
+        BananaService.EatBananas(selectedUnit.BananaCost);
+        UnitService.AddUnit(selectedUnitId);
+    }
+}
