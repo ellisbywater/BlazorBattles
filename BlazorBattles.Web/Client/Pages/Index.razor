@@ -1,4 +1,15 @@
 ﻿@page "/"
 
+<AuthorizeView>
+    <Authorized>
+        <h1>Hi, @context.User.Identity.Name. Welcome back!</h1>
+        Let's inspect <NavLink href="army">your great army</NavLink>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Welcome to Blazor Battles!</h1>
+        <Login/>
+    </NotAuthorized>
+</AuthorizeView>
+
 <h1>Welcome, To Blazor Battles</h1>
 
